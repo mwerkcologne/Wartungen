@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wartungstagebuch – Aprilia SR50 Netscaper (1997)</title>
+  <title>Wartungen – Fahrzeugübersicht</title>
   <style>
     :root {
       --bg: #121417;
       --card: #1c2026;
+      --card-hover: #252a32;
       --border: #2e343d;
       --text: #f1f3f5;
       --muted: #9aa4b2;
-      --accent: #e0b341; /* Dezenter Gold-Akzent */
+      --accent: #e0b341;
       --accent-dark: #b88f28;
       --danger: #d9534f;
     }
@@ -42,7 +43,7 @@
 
     header h1 {
       margin: 0;
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       letter-spacing: 0.3px;
     }
 
@@ -53,6 +54,63 @@
       font-size: 0.95rem;
     }
 
+    .back-btn {
+      display: inline-block;
+      background: rgba(224, 179, 65, 0.12);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      cursor: pointer;
+    }
+
+    /* Hauptseite: Fahrzeug-Ordner */
+    .folder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .folder-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+
+    .folder-card:hover, .folder-card:active {
+      background: var(--card-hover);
+    }
+
+    .folder-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+
+    .folder-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .folder-arrow {
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Detailansicht Karten */
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -63,7 +121,7 @@
 
     .card h2 {
       margin: 0 0 12px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -128,7 +186,7 @@
       gap: 10px;
     }
 
-    button {
+    button.primary-btn {
       width: 100%;
       padding: 12px;
       border: none;
@@ -141,17 +199,20 @@
       margin-top: 6px;
     }
 
-    button:active {
+    button.primary-btn:active {
       background: var(--accent-dark);
     }
 
     .btn-secondary {
+      width: 100%;
       background: transparent;
       border: 1px solid var(--border);
       color: var(--muted);
+      border-radius: 8px;
       font-size: 0.85rem;
       padding: 8px;
       margin-top: 10px;
+      cursor: pointer;
     }
 
     /* Logbuch-Einträge */
@@ -161,7 +222,6 @@
       padding: 10px 12px;
       border-radius: 0 8px 8px 0;
       margin-bottom: 10px;
-      position: relative;
     }
 
     .entry-header {
@@ -189,18 +249,19 @@
       background: none;
       border: none;
       color: var(--danger);
-      width: auto;
-      padding: 2px 6px;
-      margin: 0;
+      padding: 0 4px;
       font-size: 0.8rem;
-      font-weight: normal;
-      float: right;
+      cursor: pointer;
     }
 
     .hint {
       font-size: 0.78rem;
       color: var(--muted);
       margin-top: 8px;
+    }
+
+    .hidden {
+      display: none;
     }
 
     @media (max-width: 480px) {
@@ -212,68 +273,285 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Aprilia SR50 Netscaper</h1>
-      <p>Baujahr 1997 • Minarelli Horizontal LC</p>
-    </header>
 
-    <!-- STAMMDATEN -->
-    <section class="card">
-      <h2>Fahrzeug- & Technikdaten</h2>
-      <div class="specs-grid">
-        <div class="spec-item">
-          <span class="spec-label">Modell / Typ</span>
-          <span class="spec-value">Aprilia SR50 Netscaper (1997)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Motor</span>
-          <span class="spec-value">Minarelli Horizontal LC (2-Takt)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">2-Takt-Öl</span>
-          <span class="spec-value">Vollsynthetisch (z. B. Motul 710)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Getriebeöl</span>
-          <span class="spec-value">SAE 80W-90 (ca. 110 ml)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Keilriemen</span>
-          <span class="spec-value">Minarelli lang (z. B. 747 x 16,5 mm)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Zündkerze</span>
-          <span class="spec-value">NGK BR8HS / BR9ES (je nach Setup)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Reifendruck (V / H)</span>
-          <span class="spec-value">1,8 bar / 2,0 bar</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Kühlflüssigkeit</span>
-          <span class="spec-value">Silikatfrei / Alu-geeignet (1:1)</span>
-        </div>
-      </div>
-      <p class="hint">Tipp: Deine genauen Setup-Daten (z. B. Vergaserdüse, Variogewichte, Riemenhersteller) kannst du direkt oben in der HTML-Datei anpassen.</p>
-    </section>
+    <!-- ANSICHT 1: HAUPTSEITE (WARTUNGEN) -->
+    <div id="home-view">
+      <header>
+        <h1>Wartungen</h1>
+        <p>Fahrzeugauswahl • Garage & Fuhrpark</p>
+      </header>
 
-    <!-- NEUER EINTRAG -->
-    <section class="card">
-      <h2>Neue Wartung eintragen</h2>
-      <form id="maintenance-form">
-        <div class="row">
-          <div class="form-group">
-            <label for="date">Datum</label>
-            <input type="date" id="date" required />
+      <div class="folder-list" id="folder-list"></div>
+      <p class="hint">Tipp: Für NFC-Tags einfach den jeweiligen Fahrzeug-Ordner öffnen und die URL aus der Adresszeile (mit #aprilia, #z900 oder #saxonette) kopieren.</p>
+    </div>
+
+    <!-- ANSICHT 2: FAHRZEUG-DETAILANSICHT -->
+    <div id="detail-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Zurück zu Wartungen</button>
+      <header>
+        <h1 id="veh-title">Fahrzeugname</h1>
+        <p id="veh-subtitle">Untertitel</p>
+      </header>
+
+      <!-- Stammdaten -->
+      <section class="card">
+        <h2>Fahrzeug- & Technikdaten</h2>
+        <div class="specs-grid" id="specs-grid"></div>
+      </section>
+
+      <!-- Neuer Eintrag -->
+      <section class="card">
+        <h2>Neue Wartung eintragen</h2>
+        <form id="maintenance-form">
+          <div class="row">
+            <div class="form-group">
+              <label for="date">Datum</label>
+              <input type="date" id="date" required />
+            </div>
+            <div class="form-group">
+              <label for="km">Kilometerstand</label>
+              <input type="number" id="km" placeholder="z. B. 14250" required />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="km">Kilometerstand</label>
-            <input type="number" id="km" placeholder="z. B. 14250" required />
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="category">Wartung / Bauteil</label>
-          <select id="category">
-            <option value="Getriebeölwechsel">Getriebeölwechsel</option>
-            <option value="2-Takt-Öl aufgefüllt">2-Takt-Öl aufgefüllt</option
+          <div class="form-group">
+            <label for="category">Wartung / Bauteil</label>
+            <select id="category"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Details / Verbaute Teile</label>
+            <textarea id="notes" rows="2" placeholder="z. B. Ölwechsel inkl. Filter, Drehmoment geprüft..."></textarea>
+          </div>
+
+          <button type="submit" class="primary-btn">+ Eintrag speichern</button>
+        </form>
+      </section>
+
+      <!-- Wartungshistorie -->
+      <section class="card">
+        <h2>Wartungshistorie</h2>
+        <div id="log-list"></div>
+        <button type="button" class="btn-secondary" onclick="exportEntries()">Einträge als Text kopieren (Backup)</button>
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    // HIER KANNST DU DEINE FAHRZEUGE & STAMMDATEN ANPASSEN:
+    const VEHICLES = {
+      aprilia: {
+        name: "Aprilia SR50 Netscaper",
+        subtitle: "Baujahr 1997 • Minarelli Horizontal LC",
+        specs: [
+          { label: "Modell / Typ", value: "Aprilia SR50 Netscaper (1997)" },
+          { label: "Motor", value: "Minarelli Horizontal LC (2-Takt)" },
+          { label: "2-Takt-Öl", value: "Vollsynthetisch (z. B. Motul 710)" },
+          { label: "Getriebeöl", value: "SAE 80W-90 (ca. 110 ml)" },
+          { label: "Keilriemen", value: "Minarelli lang (747 x 16,5 mm)" },
+          { label: "Zündkerze", value: "NGK BR8HS / BR9ES" },
+          { label: "Reifendruck (V / H)", value: "1,8 bar / 2,0 bar" },
+          { label: "Kühlflüssigkeit", value: "Silikatfrei / Alu-geeignet (1:1)" }
+        ],
+        categories: [
+          "Getriebeölwechsel",
+          "2-Takt-Öl aufgefüllt",
+          "Keilriemen & Variomatik",
+          "Zündkerze",
+          "Kühlwasser / Entlüftung",
+          "Bremsen / Reifen",
+          "Vergaser / Abstimmung",
+          "Sonstiges"
+        ]
+      },
+      z900: {
+        name: "Kawasaki Z900",
+        subtitle: "948 ccm • Reihenvierzylinder",
+        specs: [
+          { label: "Modell / Typ", value: "Kawasaki Z900 (ZR900)" },
+          { label: "Motoröl", value: "10W-40 Vollsynthetisch (JASO MA2)" },
+          { label: "Ölmenge (mit Filter)", value: "ca. 3,8 Liter" },
+          { label: "Ölfilter", value: "z. B. Hiflo HF303 / Original" },
+          { label: "Antrieb", value: "525er Kette (Durchhang 20–30 mm)" },
+          { label: "Zündkerzen", value: "NGK CR9EIA-9 (Iridium)" },
+          { label: "Reifendruck (V / H)", value: "2,5 bar / 2,9 bar" },
+          { label: "Kühlflüssigkeit", value: "Alu-geeignet (ca. 2,3 Liter)" }
+        ],
+        categories: [
+          "Motoröl & Ölfilter",
+          "Kette reinigen / spannen / schmieren",
+          "Kettensatz neu",
+          "Bremsflüssigkeit / Beläge",
+          "Reifenwechsel / Luftdruck",
+          "Luftfilter / Zündkerzen",
+          "Kühlflüssigkeit",
+          "TÜV / Inspektion",
+          "Sonstiges"
+        ]
+      },
+      saxonette: {
+        name: "Sachs Saxonette",
+        subtitle: "30 ccm • 2-Takt Hilfsmotor",
+        specs: [
+          { label: "Modell / Typ", value: "Sachs Saxonette (Typ 301)" },
+          { label: "Kraftstoff / Mischung", value: "1:100 (oder 1:80) 2-Takt-Gemisch" },
+          { label: "Getriebeöl", value: "SAE 80W / ATF (ca. 75–100 ml)" },
+          { label: "Zündkerze", value: "NGK B4H / Bosch W10AC" },
+          { label: "Vergaser", value: "Bing oder TK Membranvergaser" },
+          { label: "Reifendruck (V / H)", value: "ca. 2,5 – 3,0 bar" },
+          { label: "Kupplung", value: "Fliehkraftkupplung (trocken)" },
+          { label: "Besonderheit", value: "Dekompressionsventil prüfen" }
+        ],
+        categories: [
+          "Getriebeölwechsel",
+          "Vergaser / Membran reinigen",
+          "Zündkerze",
+          "Luftfilter",
+          "Reifen / Schläuche / Bremsen",
+          "Seilzüge & Deko-Ventil",
+          "Sonstiges"
+        ]
+      }
+    };
+
+    let currentVehicleId = null;
+
+    const homeView = document.getElementById("home-view");
+    const detailView = document.getElementById("detail-view");
+    const folderList = document.getElementById("folder-list");
+    const form = document.getElementById("maintenance-form");
+    const logList = document.getElementById("log-list");
+    const dateInput = document.getElementById("date");
+
+    // Hauptseite mit Fahrzeug-Ordnern aufbauen
+    function renderHome() {
+      folderList.innerHTML = "";
+      Object.keys(VEHICLES).forEach((key) => {
+        const veh = VEHICLES[key];
+        const count = getEntries(key).length;
+        const card = document.createElement("div");
+        card.className = "folder-card";
+        card.onclick = () => openVehicle(key);
+        card.innerHTML = `
+          <div>
+            <div class="folder-title">📁 ${veh.name}</div>
+            <p class="folder-sub">${veh.subtitle} • ${count} ${count === 1 ? "Eintrag" : "Einträge"}</p>
+          </div>
+          <div class="folder-arrow">›</div>
+        `;
+        folderList.appendChild(card);
+      });
+    }
+
+    // Fahrzeug öffnen
+    function openVehicle(id) {
+      if (!VEHICLES[id]) {
+        goHome();
+        return;
+      }
+      currentVehicleId = id;
+      window.location.hash = id;
+
+      const veh = VEHICLES[id];
+      document.title = `Wartung – ${veh.name}`;
+      document.getElementById("veh-title").textContent = veh.name;
+      document.getElementById("veh-subtitle").textContent = veh.subtitle;
+
+      // Stammdaten füllen
+      const specsGrid = document.getElementById("specs-grid");
+      specsGrid.innerHTML = veh.specs
+        .map(
+          (s) => `
+          <div class="spec-item">
+            <span class="spec-label">${s.label}</span>
+            <span class="spec-value">${s.value}</span>
+          </div>`
+        )
+        .join("");
+
+      // Kategorien-Dropdown füllen
+      const catSelect = document.getElementById("category");
+      catSelect.innerHTML = veh.categories
+        .map((c) => `<option value="${c}">${c}</option>`)
+        .join("");
+
+      dateInput.valueAsDate = new Date();
+      renderEntries();
+
+      homeView.classList.add("hidden");
+      detailView.classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    // Zurück zur Hauptseite
+    function goHome() {
+      currentVehicleId = null;
+      history.replaceState(null, "", window.location.pathname);
+      document.title = "Wartungen – Fahrzeugübersicht";
+      renderHome();
+      detailView.classList.add("hidden");
+      homeView.classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    // Speicher-Funktionen pro Fahrzeug
+    function getStorageKey(id) {
+      return `wartung_v2_${id}`;
+    }
+
+    function getEntries(id) {
+      const saved = localStorage.getItem(getStorageKey(id));
+      return saved ? JSON.parse(saved) : [];
+    }
+
+    function saveEntries(id, entries) {
+      localStorage.setItem(getStorageKey(id), JSON.stringify(entries));
+    }
+
+    function renderEntries() {
+      const entries = getEntries(currentVehicleId);
+      logList.innerHTML = "";
+
+      if (entries.length === 0) {
+        logList.innerHTML = '<p class="hint">Noch keine Wartungseinträge für dieses Fahrzeug vorhanden.</p>';
+        return;
+      }
+
+      entries.forEach((entry) => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        const formattedDate = new Date(entry.date).toLocaleDateString("de-DE");
+        div.innerHTML = `
+          <div class="entry-header">
+            <span>${formattedDate} • ${entry.km} km</span>
+            <button class="delete-btn" onclick="deleteEntry(${entry.id})">Löschen</button>
+          </div>
+          <div class="entry-title">${entry.category}</div>
+          ${entry.notes ? `<div class="entry-notes">\${entry.notes}</div>` : ""}
+        `;
+        logList.appendChild(div);
+      });
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!currentVehicleId) return;
+      const entries = getEntries(currentVehicleId);
+      const newEntry = {
+        id: Date.now(),
+        date: document.getElementById("date").value,
+        km: document.getElementById("km").value,
+        category: document.getElementById("category").value,
+        notes: document.getElementById("notes").value.trim()
+      };
+      entries.unshift(newEntry);
+      saveEntries(currentVehicleId, entries);
+      renderEntries();
+      document.getElementById("km").value = "";
+      document.getElementById("notes").value = "";
+    });
+
+    function deleteEntry(entryId) {
+      if (!confirm("Diesen Eintrag wirklich löschen?")) return;
+      const entries = get
