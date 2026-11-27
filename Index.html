@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wartungstagebuch – Aprilia SR50 Netscaper (1997)</title>
+  <style>
+    :root {
+      --bg: #121417;
+      --card: #1c2026;
+      --border: #2e343d;
+      --text: #f1f3f5;
+      --muted: #9aa4b2;
+      --accent: #e0b341; /* Dezenter Gold-Akzent */
+      --accent-dark: #b88f28;
+      --danger: #d9534f;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: 0.3px;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+    }
+
+    .spec-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .spec-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .spec-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    /* Formular */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #121417;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #121417;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    button:active {
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 8px;
+      margin-top: 10px;
+    }
+
+    /* Logbuch-Einträge */
+    .entry {
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .entry-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .entry-notes {
+      font-size: 0.9rem;
+      color: #d0d7de;
+      white-space: pre-wrap;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: var(--danger);
+      width: auto;
+      padding: 2px 6px;
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: normal;
+      float: right;
+    }
+
+    .hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .specs-grid, .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Aprilia SR50 Netscaper</h1>
+      <p>Baujahr 1997 • Minarelli Horizontal LC</p>
+    </header>
+
+    <!-- STAMMDATEN -->
+    <section class="card">
+      <h2>Fahrzeug- & Technikdaten</h2>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-label">Modell / Typ</span>
+          <span class="spec-value">Aprilia SR50 Netscaper (1997)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Motor</span>
+          <span class="spec-value">Minarelli Horizontal LC (2-Takt)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">2-Takt-Öl</span>
+          <span class="spec-value">Vollsynthetisch (z. B. Motul 710)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Getriebeöl</span>
+          <span class="spec-value">SAE 80W-90 (ca. 110 ml)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Keilriemen</span>
+          <span class="spec-value">Minarelli lang (z. B. 747 x 16,5 mm)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Zündkerze</span>
+          <span class="spec-value">NGK BR8HS / BR9ES (je nach Setup)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Reifendruck (V / H)</span>
+          <span class="spec-value">1,8 bar / 2,0 bar</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Kühlflüssigkeit</span>
+          <span class="spec-value">Silikatfrei / Alu-geeignet (1:1)</span>
+        </div>
+      </div>
+      <p class="hint">Tipp: Deine genauen Setup-Daten (z. B. Vergaserdüse, Variogewichte, Riemenhersteller) kannst du direkt oben in der HTML-Datei anpassen.</p>
+    </section>
+
+    <!-- NEUER EINTRAG -->
+    <section class="card">
+      <h2>Neue Wartung eintragen</h2>
+      <form id="maintenance-form">
+        <div class="row">
+          <div class="form-group">
+            <label for="date">Datum</label>
+            <input type="date" id="date" required />
+          </div>
+          <div class="form-group">
+            <label for="km">Kilometerstand</label>
+            <input type="number" id="km" placeholder="z. B. 14250" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Wartung / Bauteil</label>
+          <select id="category">
+            <option value="Getriebeölwechsel">Getriebeölwechsel</option>
+            <option value="2-Takt-Öl aufgefüllt">2-Takt-Öl aufgefüllt</option
